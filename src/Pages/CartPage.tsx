@@ -6,11 +6,14 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Cart</h1>
+      <h1 className="text-2xl sm:text-3xl font-semibold  text-center">Cart</h1>
+      <input type="range" />
       {cart.length === 0 ? (
-        <p className="text-center text-gray-500">Your cart is empty.</p>
+        <p className="text-center text-sm text-gray-500">Your cart is empty. <br /> 
+        <span className='text-xs'>Looks Like you haven't added anything to your cart yet </span></p>
+       
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-6 mx-auto">
           {cart.map((item:any) => (
             <div key={item.id} className="p-4 border rounded-lg shadow-md">
               <img

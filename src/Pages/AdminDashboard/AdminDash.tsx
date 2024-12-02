@@ -42,11 +42,12 @@ const AdminDash: React.FC = () => {
   };
 
   return (
-    <div className="p-8 bg-gray-50 w-[500px] mx-auto mt-3">
-      <h1 className="text-3xl font-bold text-center mb-6">Add New Product</h1>
+    <div className="p-6 bg-gray-50 w-[400px] lg:w-[500px] mx-auto mt-2">
+      <h1 className="text-2xl font-semibold text-center mb-2">Add a Product</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-semibold mb-2">Product Name</label>
+          <label className="block text-sm font-semibold mb-1">Product Name</label>
+          <p className='text-xs'>Name of the product visible to customer</p>
           <input
             type="text"
             name="name"
@@ -58,7 +59,8 @@ const AdminDash: React.FC = () => {
         </div>
         
         <div>
-          <label className="block text-sm font-semibold mb-2">Description</label>
+          <label className="block text-sm font-semibold mb-1">Description</label>
+          <p className='text-xs'>Appear at checkout on the customer portal and in quotes</p>
           <textarea
             name="description"
             value={product.description}
@@ -96,6 +98,7 @@ const AdminDash: React.FC = () => {
 
         <div>
           <label className="block text-sm font-semibold mb-2">Image</label>
+          <p className='text-xs'>Appear at checkout JPEG or PNG under 2MB</p>
           <input
             type="file"
             onChange={handleFileChange}
@@ -111,12 +114,20 @@ const AdminDash: React.FC = () => {
           </div>
         )}
 
-        <button
+       <div className='flex flex-row gap-3'>
+       <button
           type="submit"
-          className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
         >
           Add Product
         </button>
+        <button
+          
+          className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        >
+          Cancel
+        </button>
+       </div>
       </form>
     </div>
   );

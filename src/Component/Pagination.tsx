@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaBackward } from 'react-icons/fa';
-import { FaForward } from 'react-icons/fa6';
-import { GiNextButton } from 'react-icons/gi';
+import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa6';
+
 
 interface PaginationProps {
   currentPage: number;
@@ -17,9 +17,9 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-purple-200 text-white rounded hover:bg-purple-500 disabled:bg-gray-300"
+        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-gray-200/100 text-black rounded hover:bg-purple-100/50 disabled:bg-gray-300"
       >
-        <FaBackward/>
+        <FaArrowLeft/>
       </button>
 
       {pageNumbers.map((number) => (
@@ -27,8 +27,8 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
           key={number}
           onClick={() => onPageChange(number)}
           className={`px-2 py-1 sm:px-4 sm:py-2 rounded ${
-            number === currentPage ? 'bg-purple-400 text-white' : 'bg-purple-200 text-gray-700'
-          } hover:bg-blue-500 hover:text-white`}
+            number === currentPage ? 'bg-purple-100/50 text-white' : 'bg-purple-200 text-black'
+          } hover:bg-purple-200 hover:text-black`}
         >
           {number}
         </button>
@@ -37,9 +37,9 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-300"
+        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-gray-200/100 text-black rounded hover:bg-purple-100/50 disabled:bg-gray-300"
       >
-        <FaForward/>
+        <FaArrowRight/>
       </button>
     </div>
   );

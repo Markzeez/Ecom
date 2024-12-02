@@ -8,6 +8,11 @@ import AdminDash from './Pages/AdminDashboard/AdminDash';
 import AnalyticsDashboard from './Pages/AdminDashboard/AnalyticsDashboard';
 import CartPage from './Pages/CartPage';
 import AboutUs from './Pages/AboutUs/AboutUs';
+import PayStack from './Pages/Payment/PayStack';
+import ProductManagement from './Pages/Product/ProductManagement';
+import Skeleton from './Component/Skeleton';
+import Contactus from './Component/Contactus';
+import CreateReview from './Component/CreateReview';
 // import ProductManagement from './Pages/Product/ProductManagement';
 
 interface Data {
@@ -60,12 +65,15 @@ const App: React.FC = () => {
         <Route index element={<Home/>} />
         <Route path="/admindashboard" element={<AdminDash/>} />
         <Route path="/analytics" element={<AnalyticsDashboard/>} />
-        <Route path="/admindashboard" element={<AdminDash/>} />
+        <Route path="/Contactus" element={<Contactus/>} /> 
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/about" element={<AboutUs/>} />
-        {/* <Route path='/Productmanagements' element={<ProductManagement/>} /> */}
+        <Route path='/productmanagement' element={<ProductManagement/>} />
         <Route path='/admin' element={<AdminDash/>} />
-        <Route path='AnalyticsDashboard' element={<AnalyticsDashboard/>} />
+        <Route path='Analytic' element={<AnalyticsDashboard/>} />
+        <Route path='/paystack' element={<PayStack/>} />
+        <Route path='/skeleton' element={<Skeleton/>} />
+        <Route path='/create' element={<CreateReview/>} />
         <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>

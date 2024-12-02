@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '../../Component/Pagination';
 import { useCartStore } from '../../Store/Store';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 // Product data interface
 interface Product {
@@ -17,6 +21,9 @@ const ProductPage: React.FC = () => {
 
   // Zustand cart store
   const { addToCart } = useCartStore();
+
+  // Notification for toast
+  const notify = () => toast("Add to Cart");
 
   // Dummy data for demonstration purposes
   const allProducts: Product[] = Array.from({ length: 50 }, (_, i) => ({
@@ -43,26 +50,31 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-8">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Our Products</h1>
+      <ToastContainer/>
+      <h1 className="text-2xl sm:text-3xl font-thin mb-6 text-center">Popular Products</h1>
       
       {/* Responsive Product Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {currentProducts.map((product) => (
           <div key={product.id} className="p-4 border rounded-lg shadow-md">
+            <Zoom>
             <img 
               src={product.image} 
               alt={product.name} 
               className="mb-4 w-full h-32 sm:h-40 object-cover rounded" 
             />
+            </Zoom>
             <h2 className="text-lg sm:text-xl font-semibold">{product.name}</h2>
             <p className="text-sm sm:text-base text-gray-600">${product.price}</p>
             <button
               onClick={() => addToCart(product)}
-              className="w-[100px] rounded bg-purple-400 p-2 mx-auto"
+              onChange={notify}
+              className="w-[80px] rounded-lg bg-purple-400 text-xs p-2 mx-auto"
             >
               Add to Cart
             </button>
           </div>
+          
         ))}
       </div>
 
@@ -77,3 +89,8 @@ const ProductPage: React.FC = () => {
 };
 
 export default ProductPage;
+
+
+
+
+

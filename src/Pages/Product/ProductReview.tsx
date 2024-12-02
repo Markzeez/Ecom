@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import StarRating from '../../Component/StarReview';
+import StarRating from '../../Component/CreateReview';
 
 interface Review {
   name: string;

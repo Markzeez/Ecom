@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const EmailSubscriptionForm: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -40,30 +41,35 @@ const EmailSubscriptionForm: React.FC = () => {
 
     return (
         <div className="max-w-md mx-auto p-3  rounded-lg ">
-            <h2 className="text-xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <h2 className="text-2xl font-light mb-1">Subscribe</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address
-                    </label>
+                <div className='flex flex-row rounded-lg w-[270px] h-[40px] bg-white border border-gray-300 p-2'>
                     <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder='shopfromteepha@gmail.com'
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                        className="w-full px-3 py-2  rounded-md focus:outline-none "
                     />
+                
+                    <button
+                    type="submit"
+                    className="  text-black  py-2  "
+                >
+                    <FaArrowRight/>
+                </button>
+                    
                 </div>
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                {successMessage && <p className="text-green-500 text-sm mt-2">{successMessage}</p>}
-                <button
-                    type="submit"
-                    className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600"
-                >
-                    Subscribe
-                </button>
+                {successMessage && <p className="text-green-500 text-sm mt-2">{successMessage}</p>}   
             </form>
+            <div className='flex flex-row text-xs mt-1 gap-4 w-[80%] pb-4'>
+                
+                <p className='px-1'>I accept shopfromteepha Terms and Condition and acknowledge that my information will be send in accordance with shopfromteepha</p>    
+                </div>
+            
         </div>
     );
 };

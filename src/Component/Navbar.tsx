@@ -65,10 +65,10 @@ const Navbar = () => {
   return (
     <div className="flex w-full justify-between items-center h-[50px] px-4 text-black bg-white shadow">
       {/* Logo */}
-      <h1 className="cursor-pointer text-xs font-bold">Shopfromteepha</h1>
+      <Link to={'/'} className="cursor-pointer text-purple-400 text-xs font-bold">Shopfromteepha</Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex space-x-8">
+      <div className="hidden md:flex space-x-8 text-purple-400">
         <button
           onClick={() => openModal('signup')}
           className="py-2 px-4 bg-white text-blue-600 rounded-md hover:bg-gray-100 transition duration-300"
@@ -78,7 +78,7 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Icons */}
-      <div className="hidden md:flex space-x-5 cursor-pointer">
+      <div className="hidden md:flex space-x-5 cursor-pointer ">
         <div className="relative ml-6 w-[400px]">
           <input
             type="text"
@@ -91,7 +91,7 @@ const Navbar = () => {
         </div>
         <button
           onClick={() => openModal('login')}
-          className="py-2 px-4 bg-white text-blue-600 rounded-md hover:bg-gray-100 transition duration-300"
+          className="py-2 px-4 bg-white text-purple-400 rounded-md hover:bg-gray-100 transition duration-300"
         >
           Login
         </button>

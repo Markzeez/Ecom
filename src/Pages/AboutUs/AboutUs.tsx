@@ -3,9 +3,9 @@ import React from 'react';
 const AboutUs: React.FC = () => {
   return (
     <div className="p-8 bg-gray-50">
-      <h1 className="text-3xl font-bold text-center mb-6">About Us</h1>
+      <h1 className="text-3xl font-bold text-center mb-3">About Us</h1>
       <p className="text-lg text-gray-700 mb-4">
-        Welcome to [Your Company Name]! We are dedicated to providing you with the best shopping experience,
+        Welcome to shopfromteepha! We are dedicated to providing you with the best shopping experience,
         with a focus on dependability, customer service, and uniqueness.
       </p>
       <p className="text-lg text-gray-700 mb-6">
@@ -14,7 +14,7 @@ const AboutUs: React.FC = () => {
       </p>
       
       {/* Team Members Section */}
-      <h2 className="text-2xl font-semibold text-center mb-4">Meet Our Team</h2>
+      <h2 className="text-2xl font-semibold text-center mb-2">Meet Our Team</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {teamMembers.map((member) => (
           <div key={member.id} className="bg-white p-4 rounded-lg shadow-md">
@@ -32,19 +32,19 @@ const AboutUs: React.FC = () => {
 const teamMembers = [
   {
     id: 1,
-    name: 'Alice Johnson',
+    name: 'Ibrahim Lateefat',
     role: 'CEO',
     image: 'https://via.placeholder.com/150?text=Alice',
   },
   {
     id: 2,
-    name: 'Bob Smith',
+    name: 'Ibrahim Azeez',
     role: 'CTO',
     image: 'https://via.placeholder.com/150?text=Bob',
   },
   {
     id: 3,
-    name: 'Charlie Brown',
+    name: 'Aderonke Ibrahim',
     role: 'Marketing Manager',
     image: 'https://via.placeholder.com/150?text=Charlie',
   },

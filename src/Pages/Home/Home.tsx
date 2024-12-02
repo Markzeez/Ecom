@@ -1,7 +1,8 @@
 import Banner from "../../Component/Banner"
 import Footer from "../../Component/Footer"
+import Review from "../../Component/Review"
 import ProductPage from "../Product/ProductPage"
-// import ProductReview from "../Product/ProductReview"
+
 
 
 function Home() {
@@ -9,7 +10,7 @@ function Home() {
     <div>
         <Banner/>
         <ProductPage/>
-        {/* <ProductReview/> */}
+        <Review/>
         <Footer/>
     </div>
   )
