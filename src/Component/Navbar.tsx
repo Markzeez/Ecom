@@ -2,19 +2,23 @@ import { useState } from 'react';
 import { IoCartOutline, IoCloseOutline } from 'react-icons/io5';
 import { CiSearch, CiUser } from 'react-icons/ci';
 import { BiCart } from 'react-icons/bi';
-
+import useAuthStore from '../Store/useAuthStore';
+import Logout from '../Pages/Auth/Logout';
 import SignupModal from '../Pages/Auth/SignupModal';
 import LoginModal from '../Pages/Auth/LoginModal';
-import CartModal from '../Pages/CartPage';
+// import CartModal from '../Pages/CartPage';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const [modalState, setModalState] = useState({
     signup: false,
     login: false,
     cart: false,
+    // logout: false,
   });
 
+  const { isAuthenticated} = useAuthStore();
   const [searchOpen, setSearchOpen] = useState(false);
 
   const toggleSearch = () => setSearchOpen((prev) => !prev);
@@ -35,6 +39,9 @@ const Navbar = () => {
       cart: false,
     });
   };
+
+  // const logout =  useAuthStore((state => state.logout))
+
 
   const renderSearchInput = () => (
     <div className="relative flex w-full items-center bg-white p-2 rounded-md shadow">
@@ -89,16 +96,25 @@ const Navbar = () => {
             <CiSearch className="h-5 w-5 text-gray-500" />
           </div>
         </div>
-        <button
+        {isAuthenticated ? (
+          <Logout/>
+        // <button
+        // onClick={logout}
+        // className='px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600'
+        // >
+          
+        // </button>
+        ) : (<button
           onClick={() => openModal('login')}
           className="py-2 px-4 bg-white text-purple-400 rounded-md hover:bg-gray-100 transition duration-300"
         >
           Login
-        </button>
+        </button>)}
         
-        <Link to={'/cart'}><IoCartOutline className="mt-3 cursor-pointer" size={20} 
-        // onClick={() => openModal('cart')}
-         /></Link>
+        
+        {/* <Link to={'/cart'}><IoCartOutline className="mt-3 cursor-pointer" size={20} 
+        onClick={() => openModal('cart')}
+         /></Link> */}
       </div>
 
       {/* Mobile Navigation */}
@@ -109,6 +125,9 @@ const Navbar = () => {
       {/* Modals */}
       {modalState.signup && <SignupModal onClose={closeModal} isOpen={true} />}
       {modalState.login && <LoginModal onClose={closeModal} isOpen={true} />}
+      <Link to={'/cart'}><IoCartOutline className=" mt-3 cursor-pointer" size={20} 
+        onClick={() => openModal('cart')}
+         /></Link>
       {/* {modalState.cart && <CartModal onClose={closeModal} />} */}
     </div>
   );

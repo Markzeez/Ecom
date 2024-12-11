@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+
 
 const EmailSubscriptionForm: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -41,9 +41,10 @@ const EmailSubscriptionForm: React.FC = () => {
 
     return (
         <div className="max-w-md mx-auto p-3  rounded-lg ">
-            <h2 className="text-2xl font-light mb-1">Subscribe</h2>
+            <h2 className="text-2xl font-light ">Subscribe</h2>
+            <p className='text-sm'>Get E-mail update about our latest shop and special offers</p>
             <form onSubmit={handleSubmit}>
-                <div className='flex flex-row rounded-lg w-[270px] h-[40px] bg-white border border-gray-300 p-2'>
+                <div className='flex flex-col rounded-lg w-[230px] h-[40px]  bg-white border border-gray-300 '>
                     <input
                         type="email"
                         id="email"
@@ -51,14 +52,14 @@ const EmailSubscriptionForm: React.FC = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder='shopfromteepha@gmail.com'
                         required
-                        className="w-full px-3 py-2  rounded-md focus:outline-none "
+                        className="w-full p-2 text-sm  rounded-md focus:outline-none "
                     />
                 
                     <button
                     type="submit"
-                    className="  text-black  py-2  "
+                    className="  text-black w-[100px] border p-1 rounded mt-2 hover:text-white hover:bg-gray-400  "
                 >
-                    <FaArrowRight/>
+                    subscribe
                 </button>
                     
                 </div>
@@ -67,7 +68,6 @@ const EmailSubscriptionForm: React.FC = () => {
             </form>
             <div className='flex flex-row text-xs mt-1 gap-4 w-[80%] pb-4'>
                 
-                <p className='px-1'>I accept shopfromteepha Terms and Condition and acknowledge that my information will be send in accordance with shopfromteepha</p>    
                 </div>
             
         </div>

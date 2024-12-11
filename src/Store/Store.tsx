@@ -1,9 +1,94 @@
-// store/productStore.ts
 import { create } from 'zustand'
 
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+interface CartState {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: number) => void;
+  updateCartItemQuantity: (id: number, quantity: number) => void;
+}
+
+// interface FilterState {
+//   filters: {
+//     category: string;
+//     priceNumber: [number, number];
+//   };
+//   setFilter: (key: keyof FilterState['filters'], value: string | [number, number]) => void;
+//   resetFilters: () => void;
+// }
 
 
+
+export const useCartStore = create<CartState>((set) => ({
+  cart: [],
+  addToCart: (item) =>
+    set((state) => {
+      const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
+      if (existingItem) {
+        return {
+          cart: state.cart.map((cartItem) =>
+            cartItem.id === item.id
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem
+          ),
+        };
+      }
+      return { cart: [...state.cart, { ...item, quantity: 1 }] };
+    }),
+  removeFromCart: (id) =>
+    set((state) => ({
+      cart: state.cart.filter((item) => item.id !== id),
+    })),
+  updateCartItemQuantity: (id, quantity) =>
+    set((state) => ({
+      cart: state.cart.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      ),
+    })),
+
+    clearCart: () => set({ cart: [] }), // Clear all items
+}));
+
+
+
+
+
+// stores/useFilterStore.ts
+// import { create } from "zustand";
+
+interface FilterState {
+  title: string;
+  priceRange: [number, number];
+  color: string;
+  brand: string;
+  sortBy: "newest" | "oldest" | null;
+  setTitle: (title: string) => void;
+  setPriceRange: (priceRange: [number, number]) => void;
+  setColor: (color: string) => void;
+  setBrand: (brand: string) => void;
+  setSortBy: (sortBy: "newest" | "oldest" | null) => void;
+}
+
+export const useFilterStore = create<FilterState>((set) => ({
+  title: "",
+  priceRange: [0, 1000],
+  color: "",
+  brand: "",
+  sortBy: null,
+  setTitle: (title) => set({ title }),
+  setPriceRange: (priceRange) => set({ priceRange }),
+  setColor: (color) => set({ color }),
+  setBrand: (brand) => set({ brand }),
+  setSortBy: (sortBy) => set({ sortBy }),
+}));
 
 
 // interface Product {
@@ -64,27 +149,3 @@ import { create } from 'zustand'
 //   }),
 // }));
 
-  
-
-// // stores/cartStore.ts
-// import { create } from 'zustand';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
-
-interface CartState {
-  cart: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (id: number) => void;
-}
-
-export const useCartStore = create<CartState>((set) => ({
-  cart: [],
-  addToCart: (product) => set((state) => ({ cart: [...state.cart, product] })),
-  removeFromCart: (id) =>
-    set((state) => ({ cart: state.cart.filter((item) => item.id !== id) })),
-}));

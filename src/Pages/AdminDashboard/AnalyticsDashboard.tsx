@@ -39,7 +39,6 @@ const AnalyticsDashboard = () => {
         <BarChart data={trafficData} categories={[]} index={''} />
         <BarChart data={reviewData} categories={[]} index={''} />
 
-        
       </div>
       {/* Additional components for filters, detailed reports, etc. */}
     </div>

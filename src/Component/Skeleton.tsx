@@ -1,22 +1,38 @@
-const Skeleton = () => {
-    return ( 
-        <div className="border p-4 rounded-lg shadow-2xl w-[18%] mx-auto mt-[20px] max-w-[500px]">
-            <div className="relative h-[200px] w-[200px] mb-4 flex justify-center items-center bg-gray-300 animate-pulse ">
-                <svg
-                className="w-10 h-10 text-gray-200 dark:text-gray-200"
-                aria-hidden="true"
-                xmlns='http://ww.w3.org./2000/svg'
-                fill="currentColor"
-                viewBox="0 0 20 18">
-                <path d="M18 0H18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0 0-2-2h16a2 2 0 0 0"/>
-                </svg>
-            </div>
-            <div className="h-4 bg-gray-300 rounded-full mb-4 "></div>
-            <div className="h-3 bg-gray-300 rounded-full mb-3 "></div>
-            <div className="h-3 bg-gray-300 rounded-full mb-3 "></div>
-            
-        </div>
-    );
+import React from "react";
+
+interface ProductSkeletonProps {
+  width?: string;
+  height?: string;
+  className?: string;
+  count?: number;
 }
- 
-export default Skeleton;
+
+const ProductSkeleton: React.FC<ProductSkeletonProps> = ({
+  width = "280px",
+  height = "200px",
+  className = "",
+  count = 8,
+}) => {
+  return (
+    <div className={`flex flex-wrap gap-4 ${className}`} role="status" aria-label="Loading product skeletons">
+      {Array.from({ length: count }).map((_, index) => (
+        <div
+          key={index}
+          className="animate-pulse space-y-4 p-4 border w-fit rounded-md"
+        >
+          <div
+            className="bg-gray-300 shadow-sm rounded"
+            style={{ width, height }}
+          ></div>
+          <div className="space-y-2">
+            <div className="bg-gray-300 h-6 w-[100px] rounded"></div>
+            <div className="bg-gray-300 h-4 w-[100px] rounded"></div>
+            <div className="bg-gray-300 h-4 w-[100px] rounded"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ProductSkeleton;

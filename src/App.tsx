@@ -8,11 +8,20 @@ import AdminDash from './Pages/AdminDashboard/AdminDash';
 import AnalyticsDashboard from './Pages/AdminDashboard/AnalyticsDashboard';
 import CartPage from './Pages/CartPage';
 import AboutUs from './Pages/AboutUs/AboutUs';
-import PayStack from './Pages/Payment/PayStack';
-import ProductManagement from './Pages/Product/ProductManagement';
+// import PayStack from './Pages/Payment/PayStack';
+// import ProductManagement from './Pages/Product/ProductManagement';
 import Skeleton from './Component/Skeleton';
 import Contactus from './Component/Contactus';
 import CreateReview from './Component/CreateReview';
+import Paystack from './Pages/Payment/PayStack';
+import ProductList from './Pages/Product/ProductList';
+import ProductPage from './Pages/Product/ProductPage';
+import FAQ from './Component/FAQ';
+import Logout from './Pages/Auth/Logout';
+import OrderTracking from './Pages/OrderTracking.tsx/OrderTracking';
+import Emoji from './Component/Emoji';
+import ForgottenPassword from './Pages/Auth/ForgottenPassword';
+import ResetPassword from './Pages/Auth/ResetPassword';
 // import ProductManagement from './Pages/Product/ProductManagement';
 
 interface Data {
@@ -58,6 +67,12 @@ const App: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
+  // const publicKey = "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxx"; // Replace with your Paystack public key
+  // const email = "customer@example.com"; // Customer's email
+  // const amount = 5000 * 100; // Amount in kobo (e.g., 5000 Naira)
+
+  
+
   return (
     <>
       <Routes>
@@ -66,14 +81,22 @@ const App: React.FC = () => {
         <Route path="/admindashboard" element={<AdminDash/>} />
         <Route path="/analytics" element={<AnalyticsDashboard/>} />
         <Route path="/Contactus" element={<Contactus/>} /> 
+        <Route path="/products" element={<ProductPage/>} />
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/about" element={<AboutUs/>} />
-        <Route path='/productmanagement' element={<ProductManagement/>} />
+        {/* <Route path='/productmanagement' element={<ProductManagement/>} /> */}
         <Route path='/admin' element={<AdminDash/>} />
         <Route path='Analytic' element={<AnalyticsDashboard/>} />
-        <Route path='/paystack' element={<PayStack/>} />
+        {/* <Route path='/paystack' element={<Paystack email={''} amount={0} publicKey={''}/>}/> */}
         <Route path='/skeleton' element={<Skeleton/>} />
         <Route path='/create' element={<CreateReview/>} />
+        <Route path='/productlist' element={<ProductList/>} />
+        <Route path='/faq' element={<FAQ/>} />
+        <Route path='/logout' element={<Logout/>} />
+        <Route path='/order' element={<OrderTracking/>} />
+        <Route path='/emoji' element={<Emoji status={'Good'}/>} />
+        <Route path='/forget' element={<ForgottenPassword/>}/>
+        <Route path='/reset' element={<ResetPassword/>} />
         <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
