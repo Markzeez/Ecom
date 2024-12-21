@@ -14,11 +14,11 @@ const ProductSkeleton: React.FC<ProductSkeletonProps> = ({
   count = 8,
 }) => {
   return (
-    <div className={`flex flex-wrap gap-4 ${className}`} role="status" aria-label="Loading product skeletons">
+    <div className={`grid grid-cols-4 gap-4 ${className}`} role="status" aria-label="Loading product skeletons">
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
-          className="animate-pulse space-y-4 p-4 border w-fit rounded-md"
+          className="animate-pulse space-y-4 p-4 border mx-auto rounded-md"
         >
           <div
             className="bg-gray-300 shadow-sm rounded"

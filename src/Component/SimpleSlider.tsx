@@ -49,13 +49,13 @@ const SimpleSlider: React.FC = () => {
         <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[600px]">
           <img src={Bag1} className="w-full h-full object-cover" alt="Bag 1" />
           <div className="absolute inset-0 flex flex-col justify-center space-y-2 px-6 sm:px-12 lg:px-20 lg:space-y-6">
-            <h1 className="text-lg sm:text-xl lg:text-2xl text-gray-900">
+            <h1 className="text-lg sm:text-xl lg:text-2xl text-white">
               New Arrival Collection
             </h1>
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold w-[90%] sm:w-[70%] lg:w-[50%] text-gray-800">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold w-[90%] sm:w-[70%] lg:w-[50%] text-white">
               New Summer <br /> Collection 2025
             </h1>
-            <p className="text-sm sm:text-base lg:text-lg w-[100%] sm:w-[70%]  lg:w-[40%] text-gray-700">
+            <p className="text-sm sm:text-base lg:text-lg w-[100%] sm:w-[70%]  lg:w-[40%] text-white">
               Discover the latest trends in summer fashion. From casual
               wear to exclusive pieces, redefine your wardrobe with us.
             </p>
