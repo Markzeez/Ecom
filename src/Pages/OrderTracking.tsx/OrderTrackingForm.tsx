@@ -7,7 +7,7 @@ function TextInput({ name, placeholder, value, onChange }: { name: string; place
       type="text"
       name={name}
       placeholder={placeholder}
-      className="w-full p-2 border rounded"
+      className="w-[500px] p-2 border rounded"
       value={value}
       onChange={onChange}
     />
@@ -20,7 +20,7 @@ function TextArea({ name, placeholder, value, onChange }: { name: string; placeh
     <textarea
       name={name}
       placeholder={placeholder}
-      className="w-full p-2 border rounded"
+      className="w-[500px] p-2 border rounded gap-4 grid grid-cols-2"
       value={value}
       onChange={onChange}
     ></textarea>
@@ -84,7 +84,7 @@ function OrderTrackingForm() {
       {/* Customer Information */}
       <section>
         <h2 className="font-semibold">Customer Information</h2>
-        <div className="space-y-3">
+        <div className="space-y-4 flex flex-col ">
           <TextInput name="customerName" placeholder="Customer Name" value={formData.customerName} onChange={handleInputChange} />
           <TextInput name="customerContact" placeholder="Customer Contact" value={formData.customerContact} onChange={handleInputChange} />
           <TextArea name="deliveryAddress" placeholder="Delivery Address" value={formData.deliveryAddress} onChange={handleInputChange} />
@@ -94,7 +94,7 @@ function OrderTrackingForm() {
       {/* Seller Information */}
       <section>
         <h2 className="font-semibold">Seller Information</h2>
-        <div className="space-y-3">
+        <div className="space-y-3 flex flex-col">
           <TextInput name="sellerName" placeholder="Seller Name" value={formData.sellerName} onChange={handleInputChange} />
           <TextArea name="sellerSupport" placeholder="Seller Support Details" value={formData.sellerSupport} onChange={handleInputChange} />
         </div>
@@ -149,7 +149,7 @@ function OrderTrackingForm() {
               placeholder="Status"
               value={history.status}
               onChange={(e) => handleOrderHistoryChange(index, "status", e.target.value)}
-              className="p-2 border rounded flex-1"
+              className="p-2 border rounded "
             />
           </div>
         ))}
@@ -159,7 +159,7 @@ function OrderTrackingForm() {
       </section>
 
       {/* Submit Button */}
-      <button type="submit" className="w-full p-3 bg-green-500 text-white rounded">
+      <button type="submit" className="w-[150px] p-3 bg-green-500 text-white rounded">
         Submit
       </button>
     </form>

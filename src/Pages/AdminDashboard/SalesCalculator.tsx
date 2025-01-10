@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useSalesStore from '../Store/Store';
+import useSalesStore from '../../Store/Store';
 
 const SalesCalculator: React.FC = () => {
   const { addSale, getSalesByPeriod } = useSalesStore();

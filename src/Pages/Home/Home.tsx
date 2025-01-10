@@ -1,10 +1,10 @@
 import Banner from "../../Component/Banner"
-import FAQ from "../../Component/FAQ"
-import Filter from "../../Component/Filter"
-import Footer from "../../Component/Footer"
+import CardFeature from "../../Component/CardFeature"
 import Review from "../../Component/Review"
+import Search from "../../Component/Search"
 // import ProductList from "../Product/ProductList"
 import ProductPage from "../Product/ProductPage"
+
 
 
 
@@ -12,12 +12,12 @@ function Home() {
   return (
     <div>
         <Banner/>
-        <Filter/>
+        {/* <Filter/> */}
+        <Search/>
         {/* <ProductList/> */}
         <ProductPage/>
+        <CardFeature/>
         <Review/>
-        <FAQ/>
-        <Footer/>
     </div>
   )
 }

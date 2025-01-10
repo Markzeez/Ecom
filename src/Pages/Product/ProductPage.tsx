@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Skeleton from "../../Component/Skeleton";
+import { useCartIconStore } from '../../Store/useAuthStore';
 
 // Define the product interface
 interface Product {
@@ -35,6 +36,10 @@ const ProductPage: React.FC = () => {
 
   // Zustand cart store
   const addToCart = useCartStore((state) => state.addToCart); // Access the `addToCart` function
+
+  const { addItem } = useCartIconStore();
+
+  
 
   // Dummy data for demonstration
   useEffect(() => {
@@ -97,8 +102,12 @@ const ProductPage: React.FC = () => {
               </Zoom>
               <h2 className="text-lg sm:text-xl font-semibold">{product.name}</h2>
               <p className="text-sm sm:text-base text-gray-600">${product.price}</p>
+              {/* <p className="text-sm sm:text-base text-gray-600">${product.category}</p> */}
               <button
                 onClick={() => handleAddToCart(product)}
+                onClickCapture={addItem}
+                // onChange={clearCart}
+                
                 className="w-[80px] rounded-lg text-white bg-slate-400 text-xs p-2 mx-auto hover:bg-slate-500 transition duration-200"
               >
                 Add to Cart

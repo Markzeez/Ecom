@@ -8,13 +8,13 @@ import { BsYoutube } from 'react-icons/bs';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-400 text-[#0f0f0f] py-8 mt-10">
+    <footer className="bg-slate-400 text-[#0f0f0f] py-8 mt-10 w-[100%]">
       <div className="container mx-auto px-1">
         <div className="grid grid-cols-1 md:grid-cols-4  gap-6">
           {/* Links Section */}
           <div>
             {/* <h3 className="text-lg font-semibold mb-4">ABOUT US</h3> */}
-            <ul className="space-y-2">
+            <ul className="space-y-2 ml-5">
               <li><a href="#" className="hover:underline">About us</a></li>
               <li><a href="#" className="hover:underline">Contact us</a></li>
               <li><a href="#" className="hover:underline">FAQs</a></li>
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           {/* Links Section */}
           <div>
             {/* <h3 className="text-lg font-semibold mb-4">Links</h3> */}
-            <ul className="space-y-2">
+            <ul className="space-y-2 ml-5">
               <li><a href="#" className="hover:underline">Home</a></li>
               <li><a href="#" className="hover:underline">Products</a></li>
               <li><a href="#" className="hover:underline">Review</a></li>
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Contact Section */}
-          <div>
+          <div className='ml-5'>
             <h3 className="text-lg font-semibold mb-2">Follow us</h3>
             {/* <p>If you have any questions, feel free to reach out!</p> */}
             <p className="mt-2">Email: support@example.com</p>
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
         </div>
         
         {/* Copyright Section */}
-        <div className="mt-5 text-center text-sm">
+        <div className="mt-10 text-center text-sm ml-5">
           <p>&copy; {new Date().getFullYear()} Shopfromteepha. All rights reserved.</p>
         </div>
         {/* <div className="bottom-[100px] right-4 flex justify-end "> */}

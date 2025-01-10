@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const AboutUs: React.FC = () => {
   return (
     <div className="p-8 bg-gray-50">
@@ -24,6 +25,7 @@ const AboutUs: React.FC = () => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

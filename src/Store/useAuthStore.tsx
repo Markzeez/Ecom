@@ -1,15 +1,8 @@
 // stores/authStore.ts
+// Import Zustand for state management
 import { create } from 'zustand';
 
-interface User {
-  id: string;
-  password: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  image : string;
-}
-
+// Define the state and actions interface
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
@@ -17,20 +10,35 @@ interface AuthState {
   logout: () => void;
 }
 
+// Define the user structure (customize as needed)
+interface User {
+  id: string;
+  email: string;
+  [key: string]: any; // Add other user properties as needed
+}
+
+// Create the auth store
 const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  login: (user) =>
+
+  // Login action to set user data and authentication status
+  login: (user: User) =>
     set(() => ({
       user,
       isAuthenticated: true,
     })),
+
+  // Logout action to clear user data and authentication status
   logout: () =>
     set(() => ({
       user: null,
       isAuthenticated: false,
     })),
 }));
+
+// export default useAuthStore;
+
 
 // import { create } from 'zustand';
 
@@ -113,3 +121,28 @@ export const useResetPasswordStore = create<ResetPasswordState>((set, get) => ({
 }));
 
 export default useAuthStore;
+
+// import create from 'zustand';
+type CartIconState = {
+  itemCount: number; // Number of items in the cart
+  addItem: () => void; // Function to add items
+  clearsCart:() => void; // Function to clear the cart
+  resetItemCount:() => void;
+};
+
+export const useCartIconStore = create<CartIconState>((set) => ({
+  itemCount: 0,
+
+  // Function to add an item to the cart
+  addItem: () => set((state) => ({ itemCount: state.itemCount + 1 })),
+
+  // Function to clear all items in the cart
+  clearsCart: () => {
+    set({ itemCount: 0 }); // Reset item count to 0
+  },
+
+  // Function to reset the cart item count explicitly (if needed separately)
+  resetItemCount: () => set({ itemCount: 0 }),
+}));
+
+

@@ -1,53 +1,39 @@
-// components/ProductList.tsx
-// import React from "react";
-import { useFilterStore } from "../../Store/Store.tsx";
+// src/components/ProductList.tsx
+import React from 'react';
+import { useFilterStore } from '../../Store/Store';
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  color: string;
-  brand: string;
-  createdAt: string;
-}
-
-const products: Product[] = [
-  { id: 1, title: "Red Bag", price: 100, color: "Red", brand: "Brand A", createdAt: "2024-12-10" },
-  { id: 2, title: "Blue Shoes", price: 200, color: "Blue", brand: "Brand B", createdAt: "2024-12-08" },
-  // Add more products
+const products = [
+  { id: 1, name: 'Laptop', category: 'electronics' },
+  { id: 2, name: 'Jeans', category: 'fashion' },
+  { id: 3, name: 'Sofa', category: 'home' },
+  // Add more products as needed
 ];
 
-const ProductList = () => {
-  const { title, priceRange, color, brand, sortBy } = useFilterStore();
-
-  const filteredProducts = products
-    .filter((product) =>
-      title ? product.title.toLowerCase().includes(title.toLowerCase()) : true
-    )
-    .filter((product) => product.price >= priceRange[0] && product.price <= priceRange[1])
-    .filter((product) => (color ? product.color.toLowerCase() === color.toLowerCase() : true))
-    .filter((product) => (brand ? product.brand.toLowerCase() === brand.toLowerCase() : true))
-    .sort((a, b) => {
-      if (sortBy === "newest") {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      } else if (sortBy === "oldest") {
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-      }
-      return 0;
-    });
+const ProductList: React.FC = () => {
+  const { category, searchTerm } = useFilterStore();
+  const filteredProducts = products.filter((product) => 
+    (category ? product.category === category : true) &&
+    (searchTerm ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+  );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {filteredProducts.map((product) => (
-        <div key={product.id} className="p-4 border rounded-md">
-          <h3 className="text-lg font-medium">{product.title}</h3>
-          <p className="text-sm">Price: ${product.price}</p>
-          <p className="text-sm">Color: {product.color}</p>
-          <p className="text-sm">Brand: {product.brand}</p>
+    <div className="space-y-4">
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
+          <div key={product.id} className="p-4 bg-white rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold">{product.name}</h3>
+            <p className="text-gray-500">{product.category}</p>
+          </div>
+        ))
+      ) : (
+        <div className="p-4 bg-white rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold">No products found</h3>
         </div>
-      ))}
+      )}
     </div>
   );
 };
 
 export default ProductList;
+
+

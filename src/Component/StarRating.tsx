@@ -16,7 +16,7 @@ const StarRating = ({ totalStars = 5 }) => {
   );
 };
 
-const Star = ({ filled, onClick }) => (
+const Star = ({ filled, onClick }:any) => (
   <svg
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"

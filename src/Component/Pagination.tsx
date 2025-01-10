@@ -17,7 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-gray-200/100 text-black rounded hover:bg-slate-100/50 disabled:bg-gray-300"
+        className="px-2 py-1 sm:px-3 sm:py-2 mx-1 bg-gray-200/100 text-black rounded-full hover:bg-slate-100/50 disabled:bg-gray-300"
       >
         <FaArrowLeft/>
       </button>
@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
         <button
           key={number}
           onClick={() => onPageChange(number)}
-          className={`px-2 py-1 sm:px-4 sm:py-2 rounded ${
+          className={`px-2 py-1 sm:px-4 sm:py-2 rounded-full ${
             number === currentPage ? 'bg-slate-200 text-white' : 'bg-slate-400 text-black'
           } hover:bg-slate-500 hover:text-black`}
         >
@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-2 py-1 sm:px-4 sm:py-2 mx-1 bg-gray-200/100 text-black rounded hover:bg-purple-100/50 disabled:bg-gray-300"
+        className="px-2 py-1 sm:px-3 sm:py-2 mx-1 bg-gray-200/100 text-black rounded-full hover:bg-purple-100/50 disabled:bg-gray-300"
       >
         <FaArrowRight/>
       </button>

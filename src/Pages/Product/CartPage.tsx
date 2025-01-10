@@ -1,20 +1,24 @@
 import React from "react";
 import { useCartStore } from "../../Store/Store";
+import { useCartIconStore } from "../../Store/useAuthStore";
 
 const CartPage: React.FC = () => {
   const { cart, removeFromCart, updateCartItemQuantity, clearCart } = useCartStore();
+  const { clearsCart, resetItemCount } = useCartIconStore();
 
   // Calculate total price
   const calculateTotal = () =>
     cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
+  const handleClearCart = () => {
+    clearCart();
+    clearsCart();
+    resetItemCount();
+  };
+
   const CartEmptyMessage = () => (
     <p className="text-center text-sm text-gray-500">
-      Your cart is empty.
-      <br />
-      <span className="text-xs">
-        Looks like you haven't added anything to your cart yet.
-      </span>
+      Looks like you haven't added anything to your cart yet.
     </p>
   );
 
@@ -73,7 +77,7 @@ const CartPage: React.FC = () => {
         <>
           <div className="flex justify-end mb-4">
             <button
-              onClick={clearCart}
+              onClick={handleClearCart}
               className="px-4 py-2 bg-red-400 text-white rounded hover:bg-red-500"
             >
               Remove All

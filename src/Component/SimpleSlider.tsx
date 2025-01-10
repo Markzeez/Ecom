@@ -43,7 +43,7 @@ const SimpleSlider: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full mt-[20px]">
       <Slider {...settings}>
         {/* Slide 1 */}
         <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[600px]">

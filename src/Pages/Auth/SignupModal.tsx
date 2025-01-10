@@ -125,7 +125,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
               required
             />
             <div className="mr-3 cursor-pointer text-xl" onClick={handleTogglePassword}>
-              {showPassword ? <BiShow size={15} /> : <BiHide size={15} />}
+              {showPassword ? <BiShow size={12} /> : <BiHide size={12} />}
             </div>
           </div>
           <div className="flex items-center border border-gray-300 rounded-2xl">
@@ -139,7 +139,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
               required
             />
             <div className="mr-3 cursor-pointer text-xl" onClick={handleToggleConfirmPassword}>
-              {showConfirmPassword ? <BiShow size={15} /> : <BiHide size={15} />}
+              {showConfirmPassword ? <BiShow size={12} /> : <BiHide size={12} />}
             </div>
           </div>
           <div>

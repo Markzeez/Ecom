@@ -4,6 +4,7 @@ interface Product {
   name: string;
   description: string;
   price: number;
+  discount?: number; // Made discount optional
   color: string;
   image: string;
 }
@@ -17,9 +18,14 @@ const AdminDash: React.FC = () => {
     image: '',
   });
 
+  const [submittedProduct, setSubmittedProduct] = useState<Product | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    setProduct({
+      ...product,
+      [name]: name === 'price' || name === 'discount' ? parseFloat(value) : value,
+    });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,10 +41,14 @@ const AdminDash: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Submit product data to the server or database
-    console.log(product);
+    // Simulate product submission
+    setSubmittedProduct(product);
     // Reset form after submission
-    setProduct({ name: '', description: '', price: 0, color: '', image: '' });
+    setProduct({ name: '', description: '', price: 0, color: '', image: '', discount: undefined });
+  };
+
+  const calculateDiscountedPrice = (price: number, discount?: number) => {
+    return discount ? price - (price * discount) / 100 : price;
   };
 
   return (
@@ -47,7 +57,7 @@ const AdminDash: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-semibold mb-1">Product Name</label>
-          <p className='text-xs'>Name of the product visible to customer</p>
+          <p className="text-xs">Name of the product visible to customer</p>
           <input
             type="text"
             name="name"
@@ -57,10 +67,10 @@ const AdminDash: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-semibold mb-1">Description</label>
-          <p className='text-xs'>Appear at checkout on the customer portal and in quotes</p>
+          <p className="text-xs">Appear at checkout on the customer portal and in quotes</p>
           <textarea
             name="description"
             value={product.description}
@@ -72,7 +82,7 @@ const AdminDash: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold mb-2">Price</label>
+          <label className="block text-sm font-semibold mb-2">Price (₦)</label>
           <input
             type="number"
             name="price"
@@ -81,6 +91,19 @@ const AdminDash: React.FC = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
             required
             min={0}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold mb-2">Discount (%)</label>
+          <input
+            type="number"
+            name="discount"
+            value={product.discount || ''}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+            min={0}
+            max={100}
           />
         </div>
 
@@ -98,7 +121,7 @@ const AdminDash: React.FC = () => {
 
         <div>
           <label className="block text-sm font-semibold mb-2">Image</label>
-          <p className='text-xs'>Appear at checkout JPEG or PNG under 2MB</p>
+          <p className="text-xs">Appear at checkout JPEG or PNG under 2MB</p>
           <input
             type="file"
             onChange={handleFileChange}
@@ -114,21 +137,56 @@ const AdminDash: React.FC = () => {
           </div>
         )}
 
-       <div className='flex flex-row gap-3'>
-       <button
-          type="submit"
-          className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-        >
-          Add Product
-        </button>
-        <button
-          
-          className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-        >
-          Cancel
-        </button>
-       </div>
+        <div className="flex flex-row gap-3">
+          <button
+            type="submit"
+            className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          >
+            Add Product
+          </button>
+          <button
+            className="w-[100px] py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
+
+      {submittedProduct && (
+        <div className="mt-6 bg-green-100 p-4 rounded">
+          <h2 className="text-lg font-semibold text-green-800">Product Added Successfully!</h2>
+          <p>
+            <strong>Name:</strong> {submittedProduct.name}
+          </p>
+          <p>
+            <strong>Description:</strong> {submittedProduct.description}
+          </p>
+          <p>
+            <strong>Price:</strong> ₦{submittedProduct.price.toFixed(2)}
+          </p>
+          {submittedProduct.discount && (
+            <>
+              <p>
+                <strong>Discount:</strong> {submittedProduct.discount}%
+              </p>
+              <p>
+                <strong>Discounted Price:</strong> ₦
+                {calculateDiscountedPrice(submittedProduct.price, submittedProduct.discount).toFixed(2)}
+              </p>
+            </>
+          )}
+          <p>
+            <strong>Color:</strong> {submittedProduct.color}
+          </p>
+          {submittedProduct.image && (
+            <img
+              src={submittedProduct.image}
+              alt="Product"
+              className="w-full h-48 object-cover rounded mt-2"
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

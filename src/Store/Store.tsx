@@ -7,6 +7,11 @@ interface CartItem {
   price: number;
   image: string;
   quantity: number;
+  clearCart: number;
+  product: number;
+  // addItem: number;
+
+  
 }
 
 // Define the CartState interface
@@ -16,6 +21,7 @@ interface CartState {
   removeFromCart: (id: number) => void;
   updateCartItemQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
+  // addItem: () => void;
 }
 
 // Zustand store for managing cart state
@@ -58,8 +64,23 @@ export const useCartStore = create<CartState>((set) => ({
 
   // Clear all items from the cart
   clearCart: () => set({ cart: [] }),
+  itemCount: 0, // Initial cart item count
+  // Function to add an item to the cart
+  // addItem: () => set((state) => ({ itemCount: state.itemCount + 1 })),
+  
+  // Function to clear all items in the cart by setting itemCount to 0
+  // clearsCart:()=> set({ itemCount: 0}),
 }));
 
+
+// store/cartStore.ts
+// import { create } from 'zustand';
+
+// interface CartItem {
+//   id: number;
+//   addItem: ()=>void;
+//   removeItem: ()=>void;
+// }
 
 
 
@@ -68,29 +89,17 @@ export const useCartStore = create<CartState>((set) => ({
 // import { create } from "zustand";
 
 interface FilterState {
-  title: string;
-  priceRange: [number, number];
-  color: string;
-  brand: string;
-  sortBy: "newest" | "oldest" | null;
-  setTitle: (title: string) => void;
-  setPriceRange: (priceRange: [number, number]) => void;
-  setColor: (color: string) => void;
-  setBrand: (brand: string) => void;
-  setSortBy: (sortBy: "newest" | "oldest" | null) => void;
+  category: string;
+  SetCategory: (category: string) => void;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
 export const useFilterStore = create<FilterState>((set) => ({
-  title: "",
-  priceRange: [0, 1000],
-  color: "",
-  brand: "",
-  sortBy: null,
-  setTitle: (title) => set({ title }),
-  setPriceRange: (priceRange) => set({ priceRange }),
-  setColor: (color) => set({ color }),
-  setBrand: (brand) => set({ brand }),
-  setSortBy: (sortBy) => set({ sortBy }),
+  category: '',
+  SetCategory:(category)=>set({category}),
+  searchTerm: '',
+  setSearchTerm: (searchTerm)=>set({searchTerm}),
 }));
 
 // import { create } from 'zustand';

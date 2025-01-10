@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
 const reviews = [
@@ -102,9 +102,9 @@ const Review: React.FC = () => {
 
   return (
     <div className="review-slider max-w-7xl mx-auto p-4">
-      <h2 className="text-xl font-thin text-center mb-6">Reviews</h2>
+      {/* <h2 className="text-xl font-thin text-center mb-6">Reviews</h2> */}
       
-       <Link to={'/create'}> <button className="w-[200px] border border-cyan-400 hover:bg-cyan-400 p-2 rounded-sm text-cyan-400 hover:text-white flex justify-center mx-auto ">Write a review</button></Link>
+       {/* <Link to={'/create'} className="w-[200px] border border-cyan-400 hover:bg-cyan-400 p-2 rounded-sm text-cyan-400 hover:text-white flex justify-center mx-auto ">Write a review</Link> */}
       
       <Slider {...settings}>
         {reviews.map((review) => (

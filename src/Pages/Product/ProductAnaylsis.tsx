@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AreaChart } from '@tremor/react';
+// import { AreaChart } from '@tremor/react';
 
 interface Sale {
   amount: number;
@@ -9,12 +9,14 @@ interface Traffic {
   visitors: number;
 }
 
-interface Review {}
+interface Review {
+  
+}
 
-const AnalyticsDashboard = () => {
-  const [salesData, setSalesData] = useState<Sale[]>([]);
-  const [trafficData, setTrafficData] = useState<Traffic[]>([]);
-  const [reviewData, setReviewData] = useState<Review[]>([]);
+const ProductAnalysis = () => {
+  // const [salesData, setSalesData] = useState<Sale[]>([]);
+  // const [trafficData, setTrafficData] = useState<Traffic[]>([]);
+  // const [reviewData, setReviewData] = useState<Review[]>([]);
   const [totalSales, setTotalSales] = useState<number>(0);
   const [totalCustomers, setTotalCustomers] = useState<number>(0);
   const [totalReviews, setTotalReviews] = useState<number>(0);
@@ -34,9 +36,9 @@ const AnalyticsDashboard = () => {
         const traffic: Traffic[] = await trafficResponse.json();
         const review: Review[] = await reviewResponse.json();
 
-        setSalesData(sales);
-        setTrafficData(traffic);
-        setReviewData(review);
+        // setSalesData(sales);
+        // setTrafficData(traffic);
+        // setReviewData(review);
 
         // Calculate totals
         setTotalSales(sales.reduce((acc, curr) => acc + curr.amount, 0));
@@ -67,32 +69,28 @@ const AnalyticsDashboard = () => {
     <div className="p-4">
       <h1 className="text-xl text-center font-semibold">Analytics Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold">Total Sales</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
+        <div className="flex flex-col items-center bg-gray-400 rounded w-[120px] h-[60px] ">
+          <h2 className="text-xs font-semibold">Total Sales</h2>
           <p className="text-xl">{totalSales}</p>
         </div>
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold">Total Customers</h2>
+        <div className="flex flex-col items-center bg-gray-400 rounded w-[120px] h-[60px]">
+          <h2 className="text-xs font-semibold">Total Customers</h2>
           <p className="text-xl">{totalCustomers}</p>
         </div>
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold">Total Reviews</h2>
+        <div className="flex flex-col items-center bg-gray-400 rounded w-[120px] h-[60px]">
+          <h2 className="text-xs font-semibold">Total Reviews</h2>
           <p className="text-xl">{totalReviews}</p>
         </div>
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold">Total Website Visitors</h2>
+        <div className="flex flex-col items-center bg-gray-400 rounded w-[120px] h-[60px]">
+          <h2 className="text-xs font-semibold">Total Website Visitors</h2>
           <p className="text-xl">{totalVisitors}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <AreaChart data={salesData} categories={[]} index={''} />
-        <AreaChart data={trafficData} categories={[]} index={''} />
-        <AreaChart data={reviewData} categories={[]} index={''} />
-      </div>
+      
     </div>
   );
 };
 
-export default AnalyticsDashboard;
+export default ProductAnalysis;
