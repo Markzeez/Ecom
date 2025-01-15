@@ -1,5 +1,5 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 interface MapProps {
   center: [number, number]; // Ensure center is a tuple with latitude and longitude
@@ -8,15 +8,20 @@ interface MapProps {
   markerPopupText: string;
 }
 
-const Location: React.FC<MapProps> = ({
+const Locations: React.FC<MapProps> = ({
   center = [51.505, -0.09], // Default center if not provided
   zoom = 13,
   markerPosition = [51.505, -0.09], // Default marker position if not provided
-  markerPopupText = "Default Popup Text",
+  markerPopupText = 'Default Popup Text',
 }) => {
   return (
     <div className="w-full h-96">
-      <MapContainer center={center} zoom={zoom} className="w-full h-full">
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        style={{ height: '100vh', width: '100%' }}
+        className="w-full h-full"
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -29,4 +34,4 @@ const Location: React.FC<MapProps> = ({
   );
 };
 
-export default Location;
+export default Locations;
