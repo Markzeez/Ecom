@@ -2,6 +2,7 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
  */
 
+ @import "leaflet/dist/leaflet.css";
 /* width*/
 ::-webkit-scrollbar {
     width: 10px;

@@ -6,9 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Skeleton from "../../Component/Skeleton";
-import { useCartIconStore } from '../../Store/useAuthStore';
+import { useCartIconStore } from "../../Store/useAuthStore";
 
-// Define the product interface
 interface Product {
   id: number;
   name: string;
@@ -19,112 +18,95 @@ interface Product {
 const ProductPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
 
-  useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      // setProducts([
-      //   { id: 1, name: "Product 1", price: 20, image: "/product1.jpg" },
-      //   { id: 2, name: "Product 2", price: 30, image: "/product2.jpg" },
-      // ]);
-      setLoading(false);
-    }, 2000); // Simulating a delay
-  }, []);
-
-
-  // Zustand cart store
-  const addToCart = useCartStore((state) => state.addToCart); // Access the `addToCart` function
-
+  const addToCart = useCartStore((state) => state.addToCart);
   const { addItem } = useCartIconStore();
 
-  
-
-  // Dummy data for demonstration
   useEffect(() => {
-    const allProducts: Product[] = Array.from({ length: 50 }, (_, i) => ({
-      id: i + 1,
-      name: `Product ${i + 1}`,
-      price: parseFloat((Math.random() * 100).toFixed(2)),
-      image: `https://via.placeholder.com/150?text=Product+${i + 1}`,
-    }));
-    setProducts(allProducts);
+    // Simulate API call and initialize product list
+    const fetchProducts = async () => {
+      setLoading(true);
+      setTimeout(() => {
+        const allProducts: Product[] = Array.from({ length: 50 }, (_, i) => ({
+          id: i + 1,
+          name: `Product ${i + 1}`,
+          price: parseFloat((Math.random() * 100).toFixed(2)),
+          image: `https://via.placeholder.com/150?text=Product+${i + 1}`,
+        }));
+        setProducts(allProducts);
+        setLoading(false);
+      }, 2000);
+    };
+    fetchProducts();
   }, []);
 
   // Pagination logic
   const totalPages = Math.ceil(products.length / productsPerPage);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
-  // Add to Cart Handler with Toast
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = async (product: Product) => {
     try {
-      addToCart(product); // Add product to cart
-      toast.success(`${product.name} added to cart!`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      await addToCart(product); // Wait for the async operation to complete
+      toast.success(`${product.name} added to cart!`);
     } catch (error) {
+      console.error(error); // Log the error for debugging purposes
       toast.error(`Failed to add ${product.name} to cart.`);
     }
   };
+  
+
+  const ProductCard: React.FC<{ product: Product }> = ({ product }) => (
+    <div className="p-4 border rounded-lg shadow-md">
+      <Zoom>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="mb-4 w-full h-32 sm:h-40 object-cover rounded"
+        />
+      </Zoom>
+      <h2 className="text-lg sm:text-xl font-semibold">{product.name}</h2>
+      <p className="text-sm sm:text-base text-gray-600">${product.price}</p>
+      <button
+        onClick={() => handleAddToCart(product)}
+        className="w-[80px] rounded-lg text-white bg-slate-400 text-xs p-2 mx-auto hover:bg-slate-500 transition duration-200"
+      >
+        Add to Cart
+      </button>
+    </div>
+  );
 
   return (
     <div>
-      {loading ? (<Skeleton/>): (
+      <ToastContainer />
+      {loading ? (
+        <Skeleton />
+      ) : (
         <div className="p-4 sm:p-8">
-        <ToastContainer />
-        <h1 className="text-2xl sm:text-3xl font-thin mb-6 text-center">
-          Popular Products
-        </h1>
-  
-        {/* Responsive Product Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {currentProducts.map((product) => (
-            <div key={product.id} className="p-4 border rounded-lg shadow-md">
-              <Zoom>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="mb-4 w-full h-32 sm:h-40 object-cover rounded"
-                />
-              </Zoom>
-              <h2 className="text-lg sm:text-xl font-semibold">{product.name}</h2>
-              <p className="text-sm sm:text-base text-gray-600">${product.price}</p>
-              {/* <p className="text-sm sm:text-base text-gray-600">${product.category}</p> */}
-              <button
-                onClick={() => handleAddToCart(product)}
-                onClickCapture={addItem}
-                // onChange={clearCart}
-                
-                className="w-[80px] rounded-lg text-white bg-slate-400 text-xs p-2 mx-auto hover:bg-slate-500 transition duration-200"
-              >
-                Add to Cart
-              </button>
-            </div>
-          ))}
+          <h1 className="text-2xl sm:text-3xl font-thin mb-6 text-center">
+            Popular Products
+          </h1>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            {currentProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
-  
-        {/* Responsive Pagination Controls */}
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        )}
-      </div>
       )}
     </div>
   );

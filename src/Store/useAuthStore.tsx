@@ -1,47 +1,39 @@
-// stores/authStore.ts
-// Import Zustand for state management
 import { create } from 'zustand';
 
-// Define the state and actions interface
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  login: (user: User) => void;
-  logout: () => void;
-}
-
-// Define the user structure (customize as needed)
+// Define the User type for shared use across stores
 interface User {
   id: string;
   email: string;
-  [key: string]: any; // Add other user properties as needed
+  firstName?: string | null;
+  [key: string]: any; // Additional user properties
 }
 
-// Create the auth store
-const useAuthStore = create<AuthState>((set) => ({
+/**
+ * Auth Store
+ * Manages user authentication and session state.
+ */
+interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  setAuth: (isAuthenticated: boolean, user: User | null) => void;
+  logout: () => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
 
-  // Login action to set user data and authentication status
-  login: (user: User) =>
-    set(() => ({
-      user,
-      isAuthenticated: true,
-    })),
+  setAuth: (isAuthenticated, user) =>
+    set({ isAuthenticated, user }),
 
-  // Logout action to clear user data and authentication status
   logout: () =>
-    set(() => ({
-      user: null,
-      isAuthenticated: false,
-    })),
+    set({ isAuthenticated: false, user: null }),
 }));
 
-// export default useAuthStore;
-
-
-// import { create } from 'zustand';
-
+/**
+ * Forgot Password Store
+ * Manages the state for forgot password flow.
+ */
 interface ForgotPasswordState {
   email: string;
   successMessage: string;
@@ -55,27 +47,24 @@ export const useForgotPasswordStore = create<ForgotPasswordState>((set) => ({
   email: '',
   successMessage: '',
   errorMessage: '',
+
   setEmail: (email) => set({ email }),
+
   resetMessages: () => set({ successMessage: '', errorMessage: '' }),
+
   submitEmail: (email) => {
-    // Simulate API call
     if (email === "test@example.com") {
-      set({
-        successMessage: "A reset link has been sent to your email!",
-        errorMessage: '',
-      });
+      set({ successMessage: "A reset link has been sent to your email!", errorMessage: '' });
     } else {
-      set({
-        successMessage: '',
-        errorMessage: "Email not found. Please try again.",
-      });
+      set({ successMessage: '', errorMessage: "Email not found. Please try again." });
     }
   },
 }));
 
-
-// import { create } from 'zustand';
-
+/**
+ * Reset Password Store
+ * Manages the state for reset password flow.
+ */
 interface ResetPasswordState {
   newPassword: string;
   confirmPassword: string;
@@ -92,11 +81,16 @@ export const useResetPasswordStore = create<ResetPasswordState>((set, get) => ({
   confirmPassword: '',
   successMessage: '',
   errorMessage: '',
+
   setNewPassword: (password) => set({ newPassword: password }),
+
   setConfirmPassword: (password) => set({ confirmPassword: password }),
+
   resetMessages: () => set({ successMessage: '', errorMessage: '' }),
+
   resetPassword: () => {
     const { newPassword, confirmPassword } = get();
+
     if (!newPassword || !confirmPassword) {
       set({ errorMessage: 'Both fields are required.', successMessage: '' });
       return;
@@ -110,7 +104,6 @@ export const useResetPasswordStore = create<ResetPasswordState>((set, get) => ({
       return;
     }
 
-    // Simulate API call
     set({
       successMessage: 'Password successfully reset!',
       errorMessage: '',
@@ -120,29 +113,22 @@ export const useResetPasswordStore = create<ResetPasswordState>((set, get) => ({
   },
 }));
 
-export default useAuthStore;
-
-// import create from 'zustand';
-type CartIconState = {
-  itemCount: number; // Number of items in the cart
-  addItem: () => void; // Function to add items
-  clearsCart:() => void; // Function to clear the cart
-  resetItemCount:() => void;
-};
+/**
+ * Cart Icon Store
+ * Manages the state for the cart icon functionality.
+ */
+interface CartIconState {
+  itemCount: number;
+  addItem: () => void;
+  clearCart: () => void;
+}
 
 export const useCartIconStore = create<CartIconState>((set) => ({
   itemCount: 0,
 
-  // Function to add an item to the cart
   addItem: () => set((state) => ({ itemCount: state.itemCount + 1 })),
 
-  // Function to clear all items in the cart
-  clearsCart: () => {
-    set({ itemCount: 0 }); // Reset item count to 0
-  },
-
-  // Function to reset the cart item count explicitly (if needed separately)
-  resetItemCount: () => set({ itemCount: 0 }),
+  clearCart: () => set({ itemCount: 0 }),
 }));
 
-
+export default useAuthStore;

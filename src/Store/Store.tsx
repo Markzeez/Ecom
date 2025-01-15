@@ -86,7 +86,7 @@ export const useCartStore = create<CartState>((set) => ({
 
 
 // stores/useFilterStore.ts
-// import { create } from "zustand";
+
 
 interface FilterState {
   category: string;
@@ -102,46 +102,6 @@ export const useFilterStore = create<FilterState>((set) => ({
   setSearchTerm: (searchTerm)=>set({searchTerm}),
 }));
 
-// import { create } from 'zustand';
-
-// interface Product {
-//   id: string;
-//   name: string;
-//   price: number;
-//   description: string;
-// }
-
-// interface ProductStore {
-//   products: Product[];
-//   addProduct: (product: Product) => void;
-//   editProduct: (updatedProduct: Product) => void;
-//   deleteProduct: (id: string) => void;
-// }
-
-// export const useProductStore = create<ProductStore>((set) => ({
-//   products: [],
-//   addProduct: (product) =>
-//     set((state) => ({
-//       products: [...state.products, product],
-//     })),
-//   editProduct: (updatedProduct) =>
-//     set((state) => ({
-//       products: state.products.map((product) =>
-//         product.id === updatedProduct.id ? updatedProduct : product
-//       ),
-//     })),
-//   deleteProduct: (id) =>
-//     set((state) => ({
-//       products: state.products.filter((product) => product.id !== id),
-//     })),
-// }));
-
-
-// import create from 'zustand';
-
-// store/productStore.ts
-// import create from 'zustand';
-// import { Product, ProductStore } from '../types';
 
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],
@@ -204,7 +164,6 @@ export interface ProductStore {
 }
 
 
-// import { create } from 'zustand';
 
 interface Sale {
   amount: number;
@@ -243,3 +202,19 @@ const useSalesStore = create<SalesState>((set, get) => ({
 }));
 
 export default useSalesStore;
+
+// import { create } from 'zustand';
+
+type UserRole = 'admin' | 'user' | null;
+
+interface AuthState {
+  isAuthenticated: boolean;
+  userRole: UserRole;
+  setAuth: (authenticated: boolean, role: UserRole) => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+  isAuthenticated: false,
+  userRole: null,
+  setAuth: (authenticated, role) => set({ isAuthenticated: authenticated, userRole: role }),
+}));

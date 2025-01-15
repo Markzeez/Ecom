@@ -1,20 +1,29 @@
+import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../../Store/useAuthStore.tsx';
 
+const Logout: React.FC = () => {
+  const { logout, user, setAuth } = useAuthStore(); // Consolidated Zustand store usage
+  const navigate = useNavigate();
 
-const Logout: React.FC= () => {
-    const { logout, user} = useAuthStore();
-    // const logout =  useAuthStore((state => state.logout));
+  const handleLogout = () => {
+    setAuth(false, null); // Reset Zustand store
+    logout(); // Call logout logic
+    navigate('/login'); // Redirect to login page
+  };
+
   return (
-    <div className='flex flex-col items-center justify-center p-4'>
-        <p className='mb-2 text-xs'>Logged in as:{user?.firstName}</p>
-            <button
-            onClick={logout}
-            className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'
-            >
-                Logout
-            </button>
+    <div className="flex flex-col items-center justify-center p-4 space-y-4">
+      <p className="text-xs">
+        Logged in as: <span className="font-bold">{user?.firstName || 'Guest'}</span>
+      </p>
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+      >
+        Logout
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Logout
+export default Logout;

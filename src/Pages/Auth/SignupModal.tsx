@@ -5,11 +5,76 @@ import { FcAddImage } from 'react-icons/fc';
 import { ImagetoBase64 } from '../../utils/ImagestoBase64';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+interface InputFieldProps {
+  type: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ type, name, value, onChange, placeholder }) => (
+  <input
+    type={type}
+    name={name}
+    value={value}
+    onChange={onChange}
+    className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:outline-none"
+    placeholder={placeholder}
+    required
+  />
+);
+
+interface PasswordFieldProps {
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  showPassword: boolean;
+  togglePasswordVisibility: () => void;
+  placeholder: string;
+}
+
+const PasswordField: React.FC<PasswordFieldProps> = ({ name, value, onChange, showPassword, togglePasswordVisibility, placeholder }) => (
+  <div className="flex items-center border border-gray-300 rounded-2xl">
+    <input
+      type={showPassword ? 'text' : 'password'}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full px-4 py-2 outline-none"
+      placeholder={placeholder}
+      required
+    />
+    <div className="mr-3 cursor-pointer text-xl" onClick={togglePasswordVisibility}>
+      {showPassword ? <BiShow size={20} /> : <BiHide size={20} />}
+    </div>
+  </div>
+);
+
+const AvatarUploader: React.FC<{ onUpload: (e: React.ChangeEvent<HTMLInputElement>) => void }> = ({ onUpload }) => (
+  <div>
+    <input
+      id="file"
+      type="file"
+      className="hidden"
+      onChange={onUpload}
+    />
+    <label
+      htmlFor="file"
+      className="flex justify-center items-center gap-2 text-blue-500 text-sm cursor-pointer"
+    >
+      <FcAddImage size={40} />
+      <span>Add an avatar</span>
+    </label>
+  </div>
+);
 
 const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
   const [data, setData] = useState({
@@ -26,18 +91,18 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleTogglePassword = () => setShowPassword((prev) => !prev);
-  const handleToggleConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
+  const handleTogglePassword = () => setShowPassword(prev => !prev);
+  const handleToggleConfirmPassword = () => setShowConfirmPassword(prev => !prev);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    setData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleUploadProfileImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const base64Image = await ImagetoBase64(e.target.files[0]);
-      setData((prev) => ({ ...prev, image: base64Image }));
+      setData(prev => ({ ...prev, image: base64Image }));
     }
   };
 
@@ -66,7 +131,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
       toast(result.message);
 
       if (result.alert) {
-        onClose(); // Optionally redirect to login here
+        onClose();
       }
     } catch (error) {
       toast.error('An error occurred. Please try again.');
@@ -86,77 +151,45 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
         <h2 className="text-2xl font-semibold text-start text-gray-800 mb-3">Sign up</h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="flex gap-2">
-            <input
+            <InputField
               type="text"
               name="firstName"
               value={data.firstName}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:outline-none"
               placeholder="First Name"
-              required
             />
-            <input
+            <InputField
               type="text"
               name="lastName"
               value={data.lastName}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:outline-none"
               placeholder="Last Name"
-              required
             />
           </div>
-          <input
+          <InputField
             type="email"
             name="email"
             value={data.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:outline-none"
             placeholder="Email"
-            required
           />
-          <div className="flex items-center border border-gray-300 rounded-2xl">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              value={data.password}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 outline-none"
-              placeholder="Password"
-              required
-            />
-            <div className="mr-3 cursor-pointer text-xl" onClick={handleTogglePassword}>
-              {showPassword ? <BiShow size={12} /> : <BiHide size={12} />}
-            </div>
-          </div>
-          <div className="flex items-center border border-gray-300 rounded-2xl">
-            <input
-              type={showConfirmPassword ? 'text' : 'password'}
-              name="confirmpassword"
-              value={data.confirmpassword}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 outline-none"
-              placeholder="Confirm Password"
-              required
-            />
-            <div className="mr-3 cursor-pointer text-xl" onClick={handleToggleConfirmPassword}>
-              {showConfirmPassword ? <BiShow size={12} /> : <BiHide size={12} />}
-            </div>
-          </div>
-          <div>
-            <input
-              id="file"
-              type="file"
-              className="hidden"
-              onChange={handleUploadProfileImage}
-            />
-            <label
-              htmlFor="file"
-              className="flex justify-center items-center gap-2 text-blue-500 text-sm cursor-pointer"
-            >
-              <FcAddImage size={40} />
-              <span>Add an avatar</span>
-            </label>
-          </div>
+          <PasswordField
+            name="password"
+            value={data.password}
+            onChange={handleInputChange}
+            showPassword={showPassword}
+            togglePasswordVisibility={handleTogglePassword}
+            placeholder="Password"
+          />
+          <PasswordField
+            name="confirmpassword"
+            value={data.confirmpassword}
+            onChange={handleInputChange}
+            showPassword={showConfirmPassword}
+            togglePasswordVisibility={handleToggleConfirmPassword}
+            placeholder="Confirm Password"
+          />
+          <AvatarUploader onUpload={handleUploadProfileImage} />
           <button
             type="submit"
             className="w-full py-2 px-4 bg-red-300 text-white rounded-2xl hover:bg-red-700 transition duration-300"
@@ -173,7 +206,9 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="text-sm mt-4">
           Already have an account?{' '}
-          <span className="text-blue-500 cursor-pointer hover:underline">Sign in</span>
+          <Link to='/login'>
+            <span className="text-blue-500 cursor-pointer hover:underline">Sign in</span>
+          </Link>
         </div>
       </div>
     </div>
